@@ -37,8 +37,8 @@ export async function getServerSideProps(context) {
   console.log(id);
 
   const {data} = await axios.get('http://api.tvmaze.com/shows/' + id);
-  console.log(`Fetched a show: ${data.name}`);
+  console.log(`Fetched a show (getServerSideProps): ${data.name}`);
   return {
-    props: {data}
+    props: {data},
   };
 }

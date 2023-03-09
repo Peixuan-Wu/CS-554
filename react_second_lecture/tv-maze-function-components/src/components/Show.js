@@ -2,48 +2,20 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link, useParams} from 'react-router-dom';
 import noImage from '../img/download.jpeg';
+
 import {
-  makeStyles,
   Card,
   CardContent,
   CardMedia,
   Typography,
-  CardHeader,
-} from '@material-ui/core';
+  CardHeader
+} from '@mui/material';
 import '../App.css';
-const useStyles = makeStyles({
-  card: {
-    maxWidth: 550,
-    height: 'auto',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    borderRadius: 5,
-    border: '1px solid #1e8678',
-    boxShadow: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);',
-  },
-  titleHead: {
-    borderBottom: '1px solid #1e8678',
-    fontWeight: 'bold',
-  },
-  grid: {
-    flexGrow: 1,
-    flexDirection: 'row',
-  },
-  media: {
-    height: '100%',
-    width: '100%',
-  },
-  button: {
-    color: '#1e8678',
-    fontWeight: 'bold',
-    fontSize: 12,
-  },
-});
 
 const Show = (props) => {
   const [showData, setShowData] = useState(undefined);
   const [loading, setLoading] = useState(true);
-  const classes = useStyles();
+  // const classes = useStyles();
   let {id} = useParams();
 
   const tConvert = (time) => {
@@ -99,10 +71,27 @@ const Show = (props) => {
     );
   } else {
     return (
-      <Card className={classes.card} variant='outlined'>
-        <CardHeader className={classes.titleHead} title={showData.name} />
+      <Card
+        variant='outlined'
+        sx={{
+          maxWidth: 550,
+          height: 'auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          borderRadius: 5,
+          border: '1px solid #1e8678',
+          boxShadow:
+            '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);'
+        }}
+      >
+        <CardHeader
+          title={showData.name}
+          sx={{
+            borderBottom: '1px solid #1e8678',
+            fontWeight: 'bold'
+          }}
+        />
         <CardMedia
-          className={classes.media}
           component='img'
           image={
             showData.image && showData.image.original
@@ -113,7 +102,15 @@ const Show = (props) => {
         />
 
         <CardContent>
-          <Typography variant='body2' color='textSecondary' component='span'>
+          <Typography
+            variant='body2'
+            color='textSecondary'
+            component='span'
+            sx={{
+              borderBottom: '1px solid #1e8678',
+              fontWeight: 'bold'
+            }}
+          >
             <dl>
               <p>
                 <dt className='title'>Average Rating:</dt>

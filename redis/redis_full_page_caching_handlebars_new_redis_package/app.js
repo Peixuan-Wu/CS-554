@@ -8,13 +8,14 @@ const client = redis.createClient();
 client.connect().then(() => {});
 
 const handlebarsInstance = exphbs.create({
-  defaultLayout: 'main',
+  defaultLayout: 'main'
   // Specify helpers which are only registered on this instance.
 });
 
 app.use('/public', static);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
 app.use('/shows', async (req, res, next) => {
   if (req.originalUrl === '/shows') {
     let exists = await client.exists('showListHomepage');

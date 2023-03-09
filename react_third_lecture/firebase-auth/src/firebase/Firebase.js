@@ -1,13 +1,14 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: 'AIzaSyDp9ANCbcSH5RHFknHhIah7VuKhIKUrbMc',
-  authDomain: 'fbfall2022-2.firebaseapp.com',
-  projectId: 'fbfall2022-2',
-  storageBucket: 'fbfall2022-2.appspot.com',
-  messagingSenderId: '643864351796',
-  appId: '1:643864351796:web:0e0d8792a5c85907842661',
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 });
 
 export default firebaseApp;

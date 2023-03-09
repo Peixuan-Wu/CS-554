@@ -12,9 +12,9 @@ const Header = () => (
     <Link href='/shows'>
       <a style={linkStyle}>Shows</a>
     </Link>
-    <Link href='/test'>
+    {/* <Link href='/test'>
       <a style={linkStyle}>Test</a>
-    </Link>
+    </Link> */}
   </div>
 );
 

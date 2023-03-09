@@ -1,8 +1,7 @@
 import Layout from '../components/MyLayout';
-
 const Test = () => (
   <Layout>
-    <h1>TEST</h1>
+    <h1>This is a test</h1>
   </Layout>
 );
 

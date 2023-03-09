@@ -32,7 +32,7 @@ p {
 
 section.#{$section-content-class} {
 	h2 {
-		@include border-bottom(2px, $indigo);
+		@include border-bottom(2px, $green);
 	}
 	p {
 		@if $section-content-class==section-content {
@@ -52,7 +52,7 @@ section.#{$section-content-class} {
 }
 
 div.#{$div-circle-class}{
-	@include circle($danger)
+	@include circle(blue)
 }
 
 

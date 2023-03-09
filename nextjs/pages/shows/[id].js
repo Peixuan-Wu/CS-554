@@ -37,13 +37,13 @@ export async function getStaticProps({params}) {
   const data = await getIndShowData(params.id);
   return {
     props: {data},
-    revalidate: 86400
+    revalidate: 86400,
   };
 }
 
 async function getIndShowData(id) {
   const {data} = await axios.get('http://api.tvmaze.com/shows/' + id);
-  console.log(`Fetched a show: ${data.name}`);
+  console.log(`Fetched a show (getStaticProps): ${data.name}`);
   return data;
 }
 
@@ -55,12 +55,12 @@ export async function getStaticPaths() {
   const data = await getShowData();
   const paths = data.map((show) => {
     return {
-      params: {id: show.id.toString()}
+      params: {id: show.id.toString()},
     };
   });
 
   return {
     paths: paths,
-    fallback: false
+    fallback: false,
   };
 }

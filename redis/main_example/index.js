@@ -5,14 +5,10 @@ const client = redis.createClient();
 
 const main = async () => {
   await client.connect();
-  let sayHello = await client.set(
-    'hello',
-    ' FROM THE OTHER SIIIIIIIIIIDE',
-    'EX 10'
-  );
-  await client.expire('hello', 20);
-  let hello = await client.get('hello');
-  console.log(`hello, ${hello}`);
+  let sayHello = await client.set('hello', ' FROM THE OTHER SIIIIIIIIIIDE');
+  // await client.expire('hello', 20);
+  // let hello = await client.get('hello');
+  // console.log(`hello, ${hello}`);
 
   let doesHelloExist = await client.exists('hello');
   console.log(`doesHelloExist ? ${doesHelloExist === 1}`);
@@ -36,7 +32,7 @@ const main = async () => {
     'favoriteFood',
     'cake',
     'goodnight',
-    'hello',
+    'hello'
   ]);
   console.log(multiResult);
 
@@ -49,25 +45,26 @@ const main = async () => {
   let bio = {
     name: {
       first: 'Patrick',
-      last: 'Hill',
+      last: 'Hill'
     },
     goal: {
       desc: 'TO BE THE VERY BEST, LIKE NO ONE EVER WAS!',
       test: 'TO CATCH THEM IS MY REAL TEST -- ',
-      cause: 'TO TRAIN THEM IS MY CAUUUUUSE!',
+      cause: 'TO TRAIN THEM IS MY CAUUUUUSE!'
     },
     hobbies: ['making coffee', 'making low carb recipes', 'soccer'],
     'education.college': {
-      name: 'Stevens',
+      name: 'Stevens'
     },
     'hobbiesAsObject[]': {
       0: 'making coffee',
       1: 'making low carb recipes',
-      sport: 'Baseball',
+      sport: 'Baseball'
     },
-    age: 46,
+    age: 46
   };
-  //let hmSetAsyncBio = await client.hmsetAsync('bioFAIL', bio);
+
+  //
   //let hmSetAsyncBioJson = await client.hmsetAsync('bio', jsonString);
   let flatBio = flat(bio);
   console.log(flatBio);
