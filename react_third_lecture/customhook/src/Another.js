@@ -5,17 +5,15 @@ function Another(props) {
   return (
     <div className='App'>
       <div>
-        {loading ? (
-          'Loading...'
-        ) : (
-          data.results.map((pokemon) => {
-            return (
-              <div key={pokemon.id} id={pokemon.id}>
-                {pokemon.name}
-              </div>
-            );
-          })
-        )}
+        {loading
+          ? 'Loading...'
+          : data.results.map((pokemon) => {
+              return (
+                <div key={pokemon.name} id={pokemon.id}>
+                  {pokemon.name}
+                </div>
+              );
+            })}
       </div>
     </div>
   );

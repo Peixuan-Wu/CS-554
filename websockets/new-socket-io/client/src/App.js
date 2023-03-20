@@ -23,7 +23,7 @@ function App() {
     socketRef.current.on('user_join', function (data) {
       setChat([
         ...chat,
-        {name: 'ChatBot', message: `${data} has joined the chat`},
+        {name: 'ChatBot', message: `${data} has joined the chat`}
       ]);
     });
 
@@ -43,7 +43,7 @@ function App() {
     setState({...state, [msgEle.name]: msgEle.value});
     socketRef.current.emit('message', {
       name: state.name,
-      message: msgEle.value,
+      message: msgEle.value
     });
     e.preventDefault();
     setState({message: '', name: state.name});
@@ -52,6 +52,7 @@ function App() {
   };
 
   const renderChat = () => {
+    console.log('In render chat');
     return chat.map(({name, message}, index) => (
       <div key={index}>
         <h3>
