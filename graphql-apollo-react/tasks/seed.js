@@ -1,9 +1,6 @@
-const dbConnection = require('../config/mongoConnection');
-const mongoCollections = require('../config/mongoCollections');
-const uuid = require('uuid');
-
-const employees = mongoCollections.employees;
-const employers = mongoCollections.employers;
+import {dbConnection, closeConnection} from '../config/mongoConnection.js';
+import {employees, employers} from '../config/mongoCollections.js';
+import {v4 as uuid} from 'uuid';
 
 const main = async () => {
   const db = await dbConnection();
@@ -14,31 +11,31 @@ const main = async () => {
   await employeeCollection.insertMany([
     //filler employee data
     {
-      _id: uuid.v4(),
+      _id: uuid(),
       firstName: 'Patrick',
       lastName: 'Hill',
       employerId: 1
     },
     {
-      _id: uuid.v4(),
+      _id: uuid(),
       firstName: 'Jimi',
       lastName: 'Hendrix',
       employerId: 1
     },
     {
-      _id: uuid.v4(),
+      _id: uuid(),
       firstName: 'Jim',
       lastName: 'Morrison',
       employerId: 2
     },
     {
-      _id: uuid.v4(),
+      _id: uuid(),
       firstName: 'Roger',
       lastName: 'Waters',
       employerId: 1
     },
     {
-      _id: uuid.v4(),
+      _id: uuid(),
       firstName: 'John',
       lastName: 'Smith',
       employerId: 2
@@ -62,7 +59,7 @@ const main = async () => {
   ]);
 
   console.log('Done seeding database');
-  await db.serverConfig.close();
+  await closeConnection();
 };
 
 main().catch(console.log);

@@ -29,7 +29,7 @@ function App() {
 
     return () => {
       socketRef.current.off('message');
-      socketRef.current.off('user-join');
+      socketRef.current.off('user_join');
     };
   }, [chat]);
 

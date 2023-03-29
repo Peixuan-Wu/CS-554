@@ -1,6 +1,11 @@
 import React from 'react';
 import './App.css';
-import {NavLink, BrowserRouter as Router, Route} from 'react-router-dom';
+import {
+  NavLink,
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from 'react-router-dom';
 import Home from './Home';
 import Employees from './Employees';
 import Employers from './Employers';
@@ -39,9 +44,11 @@ function App() {
               </NavLink>
             </nav>
           </header>
-          <Route exact path='/' component={Home} />
-          <Route path='/employees/' component={Employees} />
-          <Route path='/employers/' component={Employers} />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/employees/' element={<Employees />} />
+            <Route path='/employers/' element={<Employers />} />
+          </Routes>
         </div>
       </Router>
     </ApolloProvider>

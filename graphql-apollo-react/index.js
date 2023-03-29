@@ -1,10 +1,10 @@
-const {ApolloServer, gql} = require('apollo-server');
-const mongoCollections = require('./config/mongoCollections');
-const uuid = require('uuid'); //for generating _id's
+import {ApolloServer, gql} from 'apollo-server';
+import {
+  employees as employeeCollection,
+  employers as employerCollection
+} from './config/mongoCollections.js';
 
-//Some Mock Data
-const employeeCollection = mongoCollections.employees;
-const employerCollection = mongoCollections.employers;
+import {v4 as uuid} from 'uuid'; //for generating _id's
 
 //Create the type definitions for the query and our data
 const typeDefs = gql`
@@ -108,8 +108,9 @@ const resolvers = {
   Mutation: {
     addEmployee: async (_, args) => {
       const employees = await employeeCollection();
+
       const newEmployee = {
-        _id: uuid.v4(),
+        _id: uuid(),
         firstName: args.firstName,
         lastName: args.lastName,
         employerId: args.employerId
@@ -120,7 +121,7 @@ const resolvers = {
     removeEmployee: async (_, args) => {
       const employees = await employeeCollection();
       const oldEmployee = await employees.findOne({_id: args._id});
-      const deletionInfo = await employees.removeOne({_id: args._id});
+      const deletionInfo = await employees.deleteOne({_id: args._id});
       if (deletionInfo.deletedCount === 0) {
         throw `Could not delete user with _id of ${args._id}`;
       }
