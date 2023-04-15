@@ -8,9 +8,7 @@ export default function shows({data}) {
       <ul>
         {data.map((show) => (
           <li key={show.id}>
-            <Link href={`/shows/${show.id}`}>
-              <a>{show.name}</a>
-            </Link>
+            <Link href={`/shows/${show.id}`}>{show.name}</Link>
           </li>
         ))}
       </ul>
@@ -18,9 +16,7 @@ export default function shows({data}) {
       <ul>
         {data.map((show) => (
           <li key={show.id}>
-            <Link href={`/show/${show.id}`}>
-              <a>{show.name}</a>
-            </Link>
+            <Link href={`/show/${show.id}`}>{show.name}</Link>
           </li>
         ))}
       </ul>
@@ -41,6 +37,6 @@ export async function getStaticProps() {
   const data = await getShowData();
   return {
     props: {data},
-    revalidate: 86400,
+    revalidate: 86400
   };
 }

@@ -130,6 +130,7 @@ const resolvers = {
     editEmployee: async (_, args) => {
       const employees = await employeeCollection();
       let newEmployee = await employees.findOne({_id: args._id});
+      console.log(newEmployee);
       if (newEmployee) {
         if (args.firstName) {
           newEmployee.firstName = args.firstName;

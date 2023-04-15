@@ -32,15 +32,24 @@ const todoReducer = (state = initalState, action) => {
       copyState.splice(index, 1);
       return [...copyState];
     case 'COMPLETE_TODO':
-      copyState = [...state];
-      index = copyState.findIndex((x) => x.id === payload.id);
-      copyState[index].completed = true;
-      return [...copyState];
+      return state.map((todo) => {
+        if (todo.id === payload.id) {
+          return {
+            ...todo,
+            completed: true
+          };
+        } else return todo;
+      });
+
     case 'UNCOMPLETE_TODO':
-      copyState = [...state];
-      index = copyState.findIndex((x) => x.id === payload.id);
-      copyState[index].completed = false;
-      return [...copyState];
+      return state.map((todo) => {
+        if (todo.id === payload.id) {
+          return {
+            ...todo,
+            completed: false
+          };
+        } else return todo;
+      });
     default:
       return state;
   }
