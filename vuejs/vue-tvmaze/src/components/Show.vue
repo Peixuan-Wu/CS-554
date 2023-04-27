@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div v-if="this.errorMessage">
+  <h3>SHOW NOT FOUND!</h3>
+  </div>
+  <div v-else>
     <h1>{{this.show.name}}</h1>
     <br />
     <img v-if="this.show.image.medium" :src="this.show.image.medium" />
@@ -22,39 +25,41 @@ export default {
     return {
       id: this.$route.params.id,
       show: { name: null, image: { medium: null }, summary: null },
-      name: null
+      name: null,
+      errorMessage:undefined
     };
   },
   methods: {
-    getShow(id) {
-      axios
-        .get("http://api.tvmaze.com/shows/" + id)
-        .then(({ data }) => (this.show = data));
+    async getShow(id) {
+      try{
+        let {data} = await axios.get ("http://api.tvmaze.com/shows/" + id)
+        this.show = data
+      }catch (e){
+        if (e.response.status==404){
+          this.errorMessage = "404! Show Not Found!"
+        }
+      }
     }
   },
-  created() {
-    this.getShow(this.$route.params.id);
-  },
-  watch: {
-    $route() {
-      this.getShow(this.$route.params.id);
-    }
+  async created() {
+    await this.getShow(this.$route.params.id);
   }
 };
 </script>
 
 <style scoped>
+h1, h4, li,span{
+  color: #4ab1a7;
+}
 h3 {
   margin: 40px 0 0;
+  font-weight: bold;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+h4 {
+  
+  font-weight: bold;
 }
 
-a {
-  color: #42b983;
-}
 span {
   text-align: center;
   max-width: 50%;

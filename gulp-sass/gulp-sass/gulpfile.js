@@ -10,11 +10,12 @@ const sassFiles = [
   './src/styles/variables.scss',
   './src/styles/custom.scss',
   './src/styles/bootstrap/scss/_variables.scss',
+  './src/styles/bootstrap/scss/bootstrap.scss'
 ];
 
 const vendorJsFiles = [
   './node_modules/jquery/dist/jquery.js',
-  './src/styles/bootstrap/dist/js/bootstrap.js',
+  './src/styles/bootstrap/dist/js/bootstrap.js'
 ];
 
 gulp.task('sass', function (done) {

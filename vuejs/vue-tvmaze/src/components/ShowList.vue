@@ -17,10 +17,9 @@ export default {
       shows: []
     };
   },
-  created() {
-    axios
-      .get("http://api.tvmaze.com/shows")
-      .then(({ data }) => (this.shows = data));
+  async created() {
+    let {data}= await axios.get("http://api.tvmaze.com/shows")
+     this.shows = data;
   }
 };
 </script>
@@ -28,18 +27,19 @@ export default {
 <style scoped>
 ul {
   margin: 0;
-  padding: 0;
   list-style-type: none;
 }
 
 ul li {
   padding: 20px;
   font-size: 1.3em;
-  background-color: #e0edf4;
-  border-left: 5px solid #3eb3f6;
+  background-color: black;
+  border-left: 5px solid #4ab1a7;
   margin-bottom: 2px;
-  color: #3e5252;
+  color: #4ab1a7;
 }
+
+
 
 p {
   text-align: center;

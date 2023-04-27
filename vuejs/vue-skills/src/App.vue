@@ -1,49 +1,29 @@
-<template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
-  </div>
-</template>
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
 
-<script>
-export default {
-  name: "App"
-};
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
+<template>
+   <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+      <router-link to="/about/patrick">About With Name</router-link>
+    </nav>
+    <br>
+  <RouterView/>
+</template>
 
-body {
-  background-color: #eeeeee;
-  font-family: "Montserrat", sans-serif;
-  display: grid;
-  grid-template-rows: auto;
-  justify-items: center;
-  padding-top: 50px;
-}
-body,
-html {
-  margin: 0;
-  height: 100%;
-}
-#app {
-  width: 50%;
-}
-nav {
-  padding: 20px 20px 20px 0;
-}
-
-nav a {
+<style scoped>
+nav a { 
+  display: inline-block;
   padding: 10px;
-  text-decoration: none;
-  background: #fff;
-  border-radius: 3px;
-  color: rgb(0, 110, 255);
-  font-weight: bold;
-  margin-right: 15px;
+  size: 32pt;
+  border-left: 1px solid var(--color-border);
 }
+
+nav a:first-of-type {
+  border: 0;
+}
+
+
 </style>

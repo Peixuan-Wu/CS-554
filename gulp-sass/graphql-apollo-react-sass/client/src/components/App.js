@@ -8,13 +8,13 @@ import {
   ApolloClient,
   HttpLink,
   InMemoryCache,
-  ApolloProvider,
+  ApolloProvider
 } from '@apollo/client';
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: 'http://localhost:4000',
-  }),
+    uri: 'http://localhost:4000'
+  })
 });
 
 function App() {
@@ -39,6 +39,7 @@ function App() {
               </NavLink>
             </nav>
           </header>
+
           <Route exact path='/' component={Home} />
           <Route path='/employees/' component={Employees} />
           <Route path='/employers/' component={Employers} />

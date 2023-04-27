@@ -1,24 +1,18 @@
 <template>
   <div class="holder">
-    <ValidationObserver v-slot="{invalid}" ref="observer">
+  
       <form @submit.prevent="addSkill">
-        <ValidationProvider rules="min:5|required" v-slot="{errors}">
-          <input type="text" placeholder="Enter a skill...." v-model="skill" name="skill" />
+        <transition enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
+        <span  class="alert formElement" v-if="v$.skill.$error"> {{ v$.skill.$errors[0].$message }} </span>
+        </transition>
+          <input class="formElement" type="text" placeholder="Enter a skill...." v-model="skill" name="skill" />
           <transition enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
-            <span class="alert" v-if="errors[0]">{{errors[0]}}</span>
+          <span class="alert formElement" v-if="v$.email.$error"> {{ v$.email.$errors[0].$message }} </span>
           </transition>
-        </ValidationProvider>
-
-        <ValidationProvider rules="email|required" v-slot="{errors}">
-          <input type="text" placeholder="Enter an email address" v-model="email" name="email" />
-          <transition enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
-            <span class="alert" v-if="errors[0]">{{errors[0]}}</span>
-          </transition>
-        </ValidationProvider>
-
-        <button type="submit" :class="{disabled: invalid}" :disabled="invalid">Submit</button>
+          <input class="formElement"  type="text" placeholder="Enter an email address" v-model="email" name="email" />
+          <button type="submit" >Submit</button>
       </form>
-    </ValidationObserver>
+    
     <ul>
       <transition-group
         name="list"
@@ -35,46 +29,46 @@
 </template>
 
 <script>
-import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { min, email, required } from "vee-validate/dist/rules";
-
-extend("min", {
-  ...min,
-  message: "This field needs a min of 5 characters"
-});
-
-extend("required", required);
-
-extend("email", {
-  ...email,
-  message: "Email address is not valid"
-});
+import useValidate from '@vuelidate/core'
+import { required, minLength, email } from '@vuelidate/validators'
 
 export default {
   name: "Skills",
+  setup () {
+    return { v$: useValidate() }
+  },
   data() {
     return {
       skills: [{ skill: "Vue.js" }, { skill: "React" }, { skill: "Redis" }],
       skill: "",
-      email: ""
+      email: "",
+      isValidForm: false
+
     };
+  },
+  validations() {
+    return {
+      email: { required, email },
+      skill: {required, minLength: minLength(5)},
+    }
   },
   methods: {
     addSkill() {
-      if (this.skill) {
+      this.v$.$validate() // checks all inputs
+      if (!this.v$.$error) {
+        if (this.skill) {
         this.skills.push({ skill: this.skill });
         this.skill = "";
         this.email = "";
-        this.$nextTick(() => this.$refs.observer.reset());
+      }
+       
+      } else {
+        return
       }
     },
     remove(id) {
       this.skills.splice(id, 1);
     }
-  },
-  components: {
-    ValidationProvider,
-    ValidationObserver
   }
 };
 </script>
@@ -119,6 +113,10 @@ p {
   color: gray;
 }
 
+.formElement{
+  width: 100%;
+}
+
 .container {
   box-shadow: 0px 0px 40px lightgray;
 }
@@ -130,6 +128,7 @@ input {
   font-size: 1.3em;
   background-color: #323333;
   color: #687f7f;
+  border: 1px solid #3eb3f6;
 }
 
 .alert {
